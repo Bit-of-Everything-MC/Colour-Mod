@@ -1,6 +1,6 @@
-package net.bitoeverything.examplemod;
+package net.bitoeverything.colouredmod;
 
-import net.bitoeverything.examplemod.block.ModBlocks;
+import net.bitoeverything.colouredmod.block.ModBlocks;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -17,14 +17,13 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
-@Mod(ExampleMod.MOD_ID)
-public class ExampleMod {
+@Mod(ColouredMod.MOD_ID)
+public class ColouredMod {
 
-    // TODO: Change MOD_ID to match mod_id in gradle.properties
-    public static final String MOD_ID = "examplemod";
+    public static final String MOD_ID = "colouredmod";
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public ExampleMod(IEventBus modEventBus, ModContainer modContainer) {
+    public ColouredMod(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
 
         NeoForge.EVENT_BUS.register(this);

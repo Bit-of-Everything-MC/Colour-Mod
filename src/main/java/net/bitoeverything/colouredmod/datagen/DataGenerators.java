@@ -1,6 +1,6 @@
-package net.bitoeverything.examplemod.datagen;
+package net.bitoeverything.colouredmod.datagen;
 
-import net.bitoeverything.examplemod.ExampleMod;
+import net.bitoeverything.colouredmod.ColouredMod;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(modid = ExampleMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ColouredMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {

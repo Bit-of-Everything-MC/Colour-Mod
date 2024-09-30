@@ -1,6 +1,6 @@
-package net.bitoeverything.examplemod.datagen;
+package net.bitoeverything.colouredmod.datagen;
 
-import net.bitoeverything.examplemod.ExampleMod;
+import net.bitoeverything.colouredmod.ColouredMod;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModBlockTagProvider extends BlockTagsProvider {
     public ModBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, ExampleMod.MOD_ID, existingFileHelper);
+        super(output, lookupProvider, ColouredMod.MOD_ID, existingFileHelper);
     }
 
     @Override
