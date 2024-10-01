@@ -1,6 +1,6 @@
-package net.bitoeverything.colouredmod.datagen;
+package net.bitoeverything.colourmod.datagen;
 
-import net.bitoeverything.colouredmod.block.ModBlocks;
+import net.bitoeverything.colourmod.block.ModBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Holder;
 import net.minecraft.data.loot.BlockLootSubProvider;

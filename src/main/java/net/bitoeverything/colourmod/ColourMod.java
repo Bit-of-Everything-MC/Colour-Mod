@@ -1,6 +1,8 @@
-package net.bitoeverything.colouredmod;
+package net.bitoeverything.colourmod;
 
-import net.bitoeverything.colouredmod.block.ModBlocks;
+import net.bitoeverything.colourmod.block.ModBlocks;
+import net.bitoeverything.colourmod.item.ModCreativeModeTabs;
+import net.bitoeverything.colourmod.item.ModItems;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -17,20 +19,23 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
-@Mod(ColouredMod.MOD_ID)
-public class ColouredMod {
+@Mod(ColourMod.MOD_ID)
+public class ColourMod {
 
-    public static final String MOD_ID = "colouredmod";
+    public static final String MOD_ID = "colourmod";
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public ColouredMod(IEventBus modEventBus, ModContainer modContainer) {
+    public ColourMod(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
 
         NeoForge.EVENT_BUS.register(this);
 
         modEventBus.addListener(this::addCreative);
 
+        ModCreativeModeTabs.register(modEventBus);
+
         ModBlocks.register(modEventBus);
+        ModItems.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

@@ -1,6 +1,6 @@
-package net.bitoeverything.colouredmod.datagen;
+package net.bitoeverything.colourmod.datagen;
 
-import net.bitoeverything.colouredmod.ColouredMod;
+import net.bitoeverything.colourmod.ColourMod;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 public class ModItemTagProvider extends ItemTagsProvider {
     public ModItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
                               CompletableFuture<TagLookup<Block>> blockTags, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, blockTags, ColouredMod.MOD_ID, existingFileHelper);
+        super(output, lookupProvider, blockTags, ColourMod.MOD_ID, existingFileHelper);
     }
 
     @Override

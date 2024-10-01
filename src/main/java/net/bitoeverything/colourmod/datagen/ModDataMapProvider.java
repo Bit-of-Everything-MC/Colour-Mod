@@ -1,4 +1,4 @@
-package net.bitoeverything.colouredmod.datagen;
+package net.bitoeverything.colourmod.datagen;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
