@@ -3,6 +3,10 @@ package net.bitoeverything.colourmod;
 import net.bitoeverything.colourmod.block.ModBlocks;
 import net.bitoeverything.colourmod.item.ModCreativeModeTabs;
 import net.bitoeverything.colourmod.item.ModItems;
+import net.bitoeverything.colourmod.item.pigments.PigmentColor;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -18,6 +22,8 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+
+import java.util.Map;
 
 @Mod(ColourMod.MOD_ID)
 public class ColourMod {

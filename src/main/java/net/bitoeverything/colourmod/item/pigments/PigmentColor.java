@@ -10,7 +10,7 @@ public enum PigmentColor implements StringRepresentable {
     MINT("mint", MapColor.EMERALD, "C7FFCC"),
     FOREST_GREEN("forest_green", MapColor.GRASS, "1A861A"),
     TURQUOISE("turquoise", MapColor.WARPED_STEM, "39E2AF"),
-    INDIGO("indigo", MapColor.TERRACOTTA_BLUE, "1A005E"),
+    NAVY("navy", MapColor.TERRACOTTA_BLUE, "1A005E"),
     ROYAL_PURPLE("royal_purple", MapColor.COLOR_PURPLE, "480096");
 
     private final String name;
@@ -31,6 +31,8 @@ public enum PigmentColor implements StringRepresentable {
     public MapColor getMapColor() {
         return this.mapColor;
     }
+
+
 
     public int getColor() {
         return this.color;

@@ -1,13 +1,16 @@
 package net.bitoeverything.colourmod.item;
 
 import net.bitoeverything.colourmod.ColourMod;
+import net.bitoeverything.colourmod.block.ModBlocks;
 import net.bitoeverything.colourmod.item.pigments.PigmentColor;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -25,9 +28,21 @@ public class ModCreativeModeTabs {
                         for(Map.Entry<DeferredItem<Item>, PigmentColor> pigmentItem : ModItems.pigmentItems.entrySet()) {
                             output.accept(pigmentItem.getKey().get());
                         }
+
+                        addAllBlocks(ModBlocks.woolBlocks, output);
+                        addAllBlocks(ModBlocks.carpetBlocks, output);
+                        addAllBlocks(ModBlocks.concreteBlocks, output);
+                        addAllBlocks(ModBlocks.concretePowderBlocks, output);
+
                     }).build());
 
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TABS.register(eventBus);
+    }
+
+    public static void addAllBlocks(Map<DeferredBlock<Block>, PigmentColor> map, CreativeModeTab.Output output) {
+        for(Map.Entry<DeferredBlock<Block>, PigmentColor> element : map.entrySet()) {
+            output.accept(element.getKey().get());
+        }
     }
 }
