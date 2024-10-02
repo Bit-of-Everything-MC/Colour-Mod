@@ -30,9 +30,9 @@ public class ModLanguageProvider extends LanguageProvider {
         this.add("creativetab.colourmod.mod_colored_blocks", "Mod Colored Blocks");
     }
 
-    protected void addAllBlockTranslations(Map<DeferredBlock<Block>, PigmentColor> map) {
-        for(Map.Entry<DeferredBlock<Block>, PigmentColor> element: map.entrySet()) {
-            this.add("block.colourmod." + element.getKey().getRegisteredName().replace("colourmod:",""), StringUtils.capitaliseAllWords(element.getKey().getRegisteredName().replace("_", " ").replace("colourmod:","")));
+    protected void addAllBlockTranslations(Map<PigmentColor, DeferredBlock<Block>> map) {
+        for(Map.Entry<PigmentColor, DeferredBlock<Block>> element: map.entrySet()) {
+            this.add("block.colourmod." + element.getValue().getRegisteredName().replace("colourmod:",""), StringUtils.capitaliseAllWords(element.getValue().getRegisteredName().replace("_", " ").replace("colourmod:","")));
         }
     }
 }

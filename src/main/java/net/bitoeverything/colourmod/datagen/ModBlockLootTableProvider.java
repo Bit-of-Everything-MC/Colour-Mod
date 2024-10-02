@@ -30,9 +30,9 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         return ModBlocks.BLOCKS.getEntries().stream().map(Holder::value)::iterator;
     }
 
-    protected void dropSelfBlocks(Map<DeferredBlock<Block>, PigmentColor> map) {
-        for(Map.Entry<DeferredBlock<Block>, PigmentColor> element: map.entrySet()) {
-            dropSelf(element.getKey().get());
+    protected void dropSelfBlocks(Map<PigmentColor, DeferredBlock<Block>> map) {
+        for(Map.Entry<PigmentColor, DeferredBlock<Block>> element: map.entrySet()) {
+            dropSelf(element.getValue().get());
         }
     }
 }

@@ -21,11 +21,12 @@ import java.util.Map;
 public class ClientRegistryEvents {
     @SubscribeEvent
     public static void registerItemColor(RegisterColorHandlersEvent.Item event) {
-        for(Map.Entry<DeferredItem<Item>, PigmentColor> pigmentItem : ModItems.pigmentItems.entrySet()) {
-            registerPigmentItemPigmentColor(event, (PigmentItem)pigmentItem.getKey().get());
+        for(Map.Entry<PigmentColor, DeferredItem<Item>> pigmentItem : ModItems.pigmentItems.entrySet()) {
+            registerPigmentItemPigmentColor(event, (PigmentItem)pigmentItem.getValue().get());
         }
 
         registerAllItemPigmentColors(event, ModBlocks.woolBlocks);
+        registerAllItemPigmentColors(event, ModBlocks.carpetBlocks);
         registerAllItemPigmentColors(event, ModBlocks.concreteBlocks);
         registerAllItemPigmentColors(event, ModBlocks.concretePowderBlocks);
     }
@@ -33,6 +34,7 @@ public class ClientRegistryEvents {
     @SubscribeEvent
     public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {
         registerAllBlockPigmentColors(event, ModBlocks.woolBlocks);
+        registerAllBlockPigmentColors(event, ModBlocks.carpetBlocks);
         registerAllBlockPigmentColors(event, ModBlocks.concreteBlocks);
         registerAllBlockPigmentColors(event, ModBlocks.concretePowderBlocks);
     }
@@ -49,15 +51,15 @@ public class ClientRegistryEvents {
         event.register((state, level, pos, tintIndex) -> pigmentColor.getColor(), block);
     }
 
-    public static void registerAllBlockPigmentColors(RegisterColorHandlersEvent.Block event, Map<DeferredBlock<Block>, PigmentColor> map) {
-        for(Map.Entry<DeferredBlock<Block>, PigmentColor> element : map.entrySet()) {
-            registerBlockPigmentColor(event, element.getKey().get(), element.getValue());
+    public static void registerAllBlockPigmentColors(RegisterColorHandlersEvent.Block event, Map<PigmentColor, DeferredBlock<Block>> map) {
+        for(Map.Entry<PigmentColor, DeferredBlock<Block>> element : map.entrySet()) {
+            registerBlockPigmentColor(event, element.getValue().get(), element.getKey());
         }
     }
 
-    public static void registerAllItemPigmentColors(RegisterColorHandlersEvent.Item event, Map<DeferredBlock<Block>, PigmentColor> map) {
-        for(Map.Entry<DeferredBlock<Block>, PigmentColor> element : map.entrySet()) {
-            registerItemPigmentColor(event, element.getKey().asItem(), element.getValue());
+    public static void registerAllItemPigmentColors(RegisterColorHandlersEvent.Item event, Map<PigmentColor, DeferredBlock<Block>> map) {
+        for(Map.Entry<PigmentColor, DeferredBlock<Block>> element : map.entrySet()) {
+            registerItemPigmentColor(event, element.getValue().asItem(), element.getKey());
         }
     }
 }

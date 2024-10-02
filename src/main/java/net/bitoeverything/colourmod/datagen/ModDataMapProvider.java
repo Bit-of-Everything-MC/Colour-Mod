@@ -24,9 +24,9 @@ public class ModDataMapProvider extends DataMapProvider {
         gatherAllForFurnaceFuel(ModBlocks.carpetBlocks, 67);
     }
 
-    protected void gatherAllForFurnaceFuel(Map<DeferredBlock<Block>, PigmentColor> map, int burnTime) {
-        for(Map.Entry<DeferredBlock<Block>, PigmentColor> element: map.entrySet()) {
-            this.builder(NeoForgeDataMaps.FURNACE_FUELS).add(element.getKey().getId(), new FurnaceFuel(burnTime), false);
+    protected void gatherAllForFurnaceFuel(Map<PigmentColor, DeferredBlock<Block>> map, int burnTime) {
+        for(Map.Entry<PigmentColor, DeferredBlock<Block>> element: map.entrySet()) {
+            this.builder(NeoForgeDataMaps.FURNACE_FUELS).add(element.getValue().getId(), new FurnaceFuel(burnTime), false);
         }
     }
 }

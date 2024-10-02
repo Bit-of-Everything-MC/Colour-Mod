@@ -15,32 +15,43 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Supplier;
 
 public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(ColourMod.MOD_ID);
-    public static final Map<DeferredBlock<Block>, PigmentColor> woolBlocks = new HashMap<>();
-    public static final Map<DeferredBlock<Block>, PigmentColor> carpetBlocks = new HashMap<>();
-    public static final Map<DeferredBlock<Block>, PigmentColor> concreteBlocks = new HashMap<>();
-    public static final Map<DeferredBlock<Block>, PigmentColor> concretePowderBlocks = new HashMap<>();
+    public static final Map<PigmentColor, DeferredBlock<Block>> woolBlocks = new TreeMap<>((o1, o2) -> {
+        if(o1.getId() == o2.getId()) return 0;
+        return o1.getId() > o2.getId() ? 1 : -1;
+    });
+    public static final Map<PigmentColor, DeferredBlock<Block>> carpetBlocks = new TreeMap<>((o1, o2) -> {
+        if(o1.getId() == o2.getId()) return 0;
+        return o1.getId() > o2.getId() ? 1 : -1;
+    });
+    public static final Map<PigmentColor, DeferredBlock<Block>> concreteBlocks = new TreeMap<>((o1, o2) -> {
+        if(o1.getId() == o2.getId()) return 0;
+        return o1.getId() > o2.getId() ? 1 : -1;
+    });
+    public static final Map<PigmentColor, DeferredBlock<Block>> concretePowderBlocks = new TreeMap<>((o1, o2) -> {
+        if(o1.getId() == o2.getId()) return 0;
+        return o1.getId() > o2.getId() ? 1 : -1;
+    });
 
     static {
         for(PigmentColor pigment : PigmentColor.values()) {
-            woolBlocks.put(registerBlock(pigment.getSerializedName() + "_wool",
-                    () -> new ModWoolBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL).mapColor(pigment.getMapColor()))), pigment);
+            woolBlocks.put(pigment, registerBlock(pigment.getSerializedName() + "_wool",
+                    () -> new ModWoolBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_WOOL).mapColor(pigment.getMapColor()))));
 
-            carpetBlocks.put(registerBlock(pigment.getSerializedName() + "_carpet",
-                    () -> new ModWoolCarpetBlock(pigment, BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_CARPET).mapColor(pigment.getMapColor()))), pigment);
+            carpetBlocks.put(pigment, registerBlock(pigment.getSerializedName() + "_carpet",
+                    () -> new ModWoolCarpetBlock(pigment, BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_CARPET).mapColor(pigment.getMapColor()))));
 
             DeferredBlock<Block> currentConcrete = registerBlock(pigment.getSerializedName() + "_concrete",
                     () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_CONCRETE).mapColor(pigment.getMapColor())));
-            concreteBlocks.put(currentConcrete, pigment);
+            concreteBlocks.put(pigment, currentConcrete);
 
-            concretePowderBlocks.put(registerBlock(pigment.getSerializedName() + "_concrete_powder",
-                    () -> new ConcretePowderBlock(currentConcrete.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_CONCRETE_POWDER).mapColor(pigment.getMapColor()))), pigment);
+            concretePowderBlocks.put(pigment, registerBlock(pigment.getSerializedName() + "_concrete_powder",
+                    () -> new ConcretePowderBlock(currentConcrete.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_CONCRETE_POWDER).mapColor(pigment.getMapColor()))));
         }
     }
 

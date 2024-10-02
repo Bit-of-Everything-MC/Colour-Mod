@@ -38,15 +38,15 @@ public class ModBlockStateProvider extends BlockStateProvider {
         return this.models().singleTexture(name, ResourceLocation.fromNamespaceAndPath(ColourMod.MOD_ID, "template_tint_carpet"), "wool", ResourceLocation.fromNamespaceAndPath(namespace, "block/" + texture));
     }
 
-    public void tintableCarpetWithItem(Map<DeferredBlock<Block>, PigmentColor> map, String texture) {
-        for(Map.Entry<DeferredBlock<Block>, PigmentColor> element: map.entrySet()) {
-            simpleBlockWithItem(element.getKey().get(), tintableCarpet(element.getKey().getRegisteredName(), ResourceLocation.DEFAULT_NAMESPACE, texture));
+    public void tintableCarpetWithItem(Map<PigmentColor, DeferredBlock<Block>> map, String texture) {
+        for(Map.Entry<PigmentColor, DeferredBlock<Block>> element: map.entrySet()) {
+            simpleBlockWithItem(element.getValue().get(), tintableCarpet(element.getValue().getRegisteredName(), ResourceLocation.DEFAULT_NAMESPACE, texture));
         }
     }
 
-    public void registerTintableCubeAllBlocksWithItems(Map<DeferredBlock<Block>, PigmentColor> map, String parentTexture) {
-        for(Map.Entry<DeferredBlock<Block>, PigmentColor> element: map.entrySet()) {
-            tintableCubeAllWithItem(element.getKey(), element.getKey().getRegisteredName(),
+    public void registerTintableCubeAllBlocksWithItems(Map<PigmentColor, DeferredBlock<Block>> map, String parentTexture) {
+        for(Map.Entry<PigmentColor, DeferredBlock<Block>> element: map.entrySet()) {
+            tintableCubeAllWithItem(element.getValue(), element.getValue().getRegisteredName(),
                     ResourceLocation.DEFAULT_NAMESPACE, parentTexture);
         }
     }

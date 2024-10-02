@@ -22,11 +22,11 @@ public class ModCreativeModeTabs {
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ColourMod.MOD_ID);
 
     public static final Supplier<CreativeModeTab> MOD_COLORED_BLOCKS_TAB = CREATIVE_MODE_TABS.register("mod_colored_blocks_tab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.pigmentItems.keySet().iterator().next().get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.pigmentItems.values().iterator().next().get()))
                     .title(Component.translatable("creativetab.colourmod.mod_colored_blocks"))
                     .displayItems((itemDisplayParameters, output) -> {
-                        for(Map.Entry<DeferredItem<Item>, PigmentColor> pigmentItem : ModItems.pigmentItems.entrySet()) {
-                            output.accept(pigmentItem.getKey().get());
+                        for(Map.Entry<PigmentColor, DeferredItem<Item>> pigmentItem : ModItems.pigmentItems.entrySet()) {
+                            output.accept(pigmentItem.getValue().get());
                         }
 
                         addAllBlocks(ModBlocks.woolBlocks, output);
@@ -40,9 +40,9 @@ public class ModCreativeModeTabs {
         CREATIVE_MODE_TABS.register(eventBus);
     }
 
-    public static void addAllBlocks(Map<DeferredBlock<Block>, PigmentColor> map, CreativeModeTab.Output output) {
-        for(Map.Entry<DeferredBlock<Block>, PigmentColor> element : map.entrySet()) {
-            output.accept(element.getKey().get());
+    public static void addAllBlocks(Map<PigmentColor, DeferredBlock<Block>> map, CreativeModeTab.Output output) {
+        for(Map.Entry<PigmentColor, DeferredBlock<Block>> element : map.entrySet()) {
+            output.accept(element.getValue().get());
         }
     }
 }

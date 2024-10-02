@@ -12,6 +12,7 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
@@ -23,7 +24,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
+    protected void addTags(HolderLookup.@NotNull Provider provider) {
         addAllTags(ModBlocks.woolBlocks, BlockTags.WOOL);
         addAllTags(ModBlocks.carpetBlocks, BlockTags.WOOL_CARPETS);
         addAllTags(ModBlocks.concreteBlocks, BlockTags.MINEABLE_WITH_PICKAXE, Tags.Blocks.CONCRETES);
@@ -31,8 +32,8 @@ public class ModBlockTagProvider extends BlockTagsProvider {
     }
 
     @SafeVarargs
-    protected final void addAllTags(Map<DeferredBlock<Block>, PigmentColor> map, TagKey<Block>... tags) {
-        for(DeferredBlock<Block> element : map.keySet()) {
+    protected final void addAllTags(Map<PigmentColor, DeferredBlock<Block>> map, TagKey<Block>... tags) {
+        for(DeferredBlock<Block> element : map.values()) {
             for(TagKey<Block> tag : tags) {
                 this.tag(tag).add(element.get());
             }
