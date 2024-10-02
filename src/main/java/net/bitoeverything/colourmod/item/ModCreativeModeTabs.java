@@ -2,7 +2,7 @@ package net.bitoeverything.colourmod.item;
 
 import net.bitoeverything.colourmod.ColourMod;
 import net.bitoeverything.colourmod.block.ModBlocks;
-import net.bitoeverything.colourmod.item.pigments.PigmentColor;
+import net.bitoeverything.colourmod.item.custom.pigments.PigmentColor;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -33,6 +33,8 @@ public class ModCreativeModeTabs {
                         addAllBlocks(ModBlocks.carpetBlocks, output);
                         addAllBlocks(ModBlocks.concreteBlocks, output);
                         addAllBlocks(ModBlocks.concretePowderBlocks, output);
+                        addAllBlocks(ModBlocks.glassBlocks, output);
+                        addAllBlocks(ModBlocks.glassPaneBlocks, output);
 
                     }).build());
 

@@ -2,7 +2,7 @@ package net.bitoeverything.colourmod.datagen;
 
 import net.bitoeverything.colourmod.ColourMod;
 import net.bitoeverything.colourmod.block.ModBlocks;
-import net.bitoeverything.colourmod.item.pigments.PigmentColor;
+import net.bitoeverything.colourmod.item.custom.pigments.PigmentColor;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
@@ -26,6 +26,8 @@ public class ModLanguageProvider extends LanguageProvider {
         addAllBlockTranslations(ModBlocks.carpetBlocks);
         addAllBlockTranslations(ModBlocks.concreteBlocks);
         addAllBlockTranslations(ModBlocks.concretePowderBlocks);
+        addAllBlockTranslations(ModBlocks.glassBlocks);
+        addAllBlockTranslations(ModBlocks.glassPaneBlocks);
 
         this.add("creativetab.colourmod.mod_colored_blocks", "Mod Colored Blocks");
     }

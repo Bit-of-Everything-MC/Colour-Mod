@@ -2,7 +2,7 @@ package net.bitoeverything.colourmod.datagen;
 
 import net.bitoeverything.colourmod.ColourMod;
 import net.bitoeverything.colourmod.block.ModBlocks;
-import net.bitoeverything.colourmod.item.pigments.PigmentColor;
+import net.bitoeverything.colourmod.item.custom.pigments.PigmentColor;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
@@ -29,6 +29,8 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         addAllTags(ModBlocks.carpetBlocks, BlockTags.WOOL_CARPETS);
         addAllTags(ModBlocks.concreteBlocks, BlockTags.MINEABLE_WITH_PICKAXE, Tags.Blocks.CONCRETES);
         addAllTags(ModBlocks.concretePowderBlocks, BlockTags.CONCRETE_POWDER, BlockTags.MINEABLE_WITH_SHOVEL);
+        addAllTags(ModBlocks.glassBlocks, Tags.Blocks.GLASS_BLOCKS_CHEAP);
+        addAllTags(ModBlocks.glassPaneBlocks, Tags.Blocks.GLASS_PANES);
     }
 
     @SafeVarargs

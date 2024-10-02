@@ -3,8 +3,9 @@ package net.bitoeverything.colourmod;
 import net.bitoeverything.colourmod.block.ModBlocks;
 import net.bitoeverything.colourmod.item.ModCreativeModeTabs;
 import net.bitoeverything.colourmod.item.ModItems;
-import net.bitoeverything.colourmod.item.pigments.PigmentColor;
-import net.minecraft.resources.ResourceLocation;
+import net.bitoeverything.colourmod.item.custom.pigments.PigmentColor;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import org.slf4j.Logger;
@@ -45,6 +46,9 @@ public class ColourMod {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        for(Map.Entry<PigmentColor, DeferredBlock<Block>> element : ModBlocks.glassBlocks.entrySet()) {
+            ItemBlockRenderTypes.setRenderLayer(element.getValue().get(), RenderType.translucent());
+        }
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
