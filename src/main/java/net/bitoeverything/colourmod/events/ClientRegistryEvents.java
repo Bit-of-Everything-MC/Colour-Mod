@@ -17,9 +17,7 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import oshi.util.tuples.Quartet;
 
-import java.lang.reflect.Method;
 import java.util.Map;
-import java.util.function.Function;
 
 @EventBusSubscriber(value = Dist.CLIENT, modid = ColourMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class ClientRegistryEvents {
@@ -27,27 +25,26 @@ public class ClientRegistryEvents {
     public static void registerItemColor(RegisterColorHandlersEvent.Item event) {
         for(Map.Entry<PigmentColor, PigmentBlockSet> blockSet : ModBlocks.pigmentBlocks.entrySet()) {
             registerPigmentItemPigmentColor(event, blockSet.getValue().Pigment.get());
-            registerItemPigmentColor(event, blockSet.getValue().Wool.asItem(), blockSet.getKey());
-            registerItemPigmentColor(event, blockSet.getValue().Carpet.asItem(), blockSet.getKey());
-            registerItemPigmentColor(event, blockSet.getValue().Concrete.asItem(), blockSet.getKey());
-            registerItemPigmentColor(event, blockSet.getValue().ConcretePowder.asItem(), blockSet.getKey());
-            registerItemPigmentColor(event, blockSet.getValue().ConcreteStair.asItem(), blockSet.getKey());
-            registerItemPigmentColor(event, blockSet.getValue().ConcreteSlab.asItem(), blockSet.getKey());
-            registerItemPigmentColor(event, blockSet.getValue().ConcreteWall.asItem(), blockSet.getKey());
+            registerItemPigmentColor(event, blockSet.getValue().Wool.asItem(), blockSet.getKey(), 1.15f);
+            registerItemPigmentColor(event, blockSet.getValue().Carpet.asItem(), blockSet.getKey(), 1.15f);
+            registerItemPigmentColor(event, blockSet.getValue().Concrete.asItem(), blockSet.getKey(), 1.0f);
+            registerItemPigmentColor(event, blockSet.getValue().ConcretePowder.asItem(), blockSet.getKey(), 1.15f);
+            registerItemPigmentColor(event, blockSet.getValue().ConcreteStair.asItem(), blockSet.getKey(), 1.0f);
+            registerItemPigmentColor(event, blockSet.getValue().ConcreteSlab.asItem(), blockSet.getKey(), 1.0f);
+            registerItemPigmentColor(event, blockSet.getValue().ConcreteWall.asItem(), blockSet.getKey(), 1.0f);
         }
-        
     }
 
     @SubscribeEvent
     public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {
         for(Map.Entry<PigmentColor, PigmentBlockSet> blockSet : ModBlocks.pigmentBlocks.entrySet()) {
-            registerBlockPigmentColor(event, blockSet.getValue().Wool.get(), blockSet.getKey());
-            registerBlockPigmentColor(event, blockSet.getValue().Carpet.get(), blockSet.getKey());
-            registerBlockPigmentColor(event, blockSet.getValue().Concrete.get(), blockSet.getKey());
-            registerBlockPigmentColor(event, blockSet.getValue().ConcretePowder.get(), blockSet.getKey());
-            registerBlockPigmentColor(event, blockSet.getValue().ConcreteStair.get(), blockSet.getKey());
-            registerBlockPigmentColor(event, blockSet.getValue().ConcreteSlab.get(), blockSet.getKey());
-            registerBlockPigmentColor(event, blockSet.getValue().ConcreteWall.get(), blockSet.getKey());
+            registerBlockPigmentColor(event, blockSet.getValue().Wool.get(), blockSet.getKey(), 1.15f);
+            registerBlockPigmentColor(event, blockSet.getValue().Carpet.get(), blockSet.getKey(), 1.15f);
+            registerBlockPigmentColor(event, blockSet.getValue().Concrete.get(), blockSet.getKey(), 1.0f);
+            registerBlockPigmentColor(event, blockSet.getValue().ConcretePowder.get(), blockSet.getKey(), 1.15f);
+            registerBlockPigmentColor(event, blockSet.getValue().ConcreteStair.get(), blockSet.getKey(), 1.0f);
+            registerBlockPigmentColor(event, blockSet.getValue().ConcreteSlab.get(), blockSet.getKey(), 1.0f);
+            registerBlockPigmentColor(event, blockSet.getValue().ConcreteWall.get(), blockSet.getKey(), 1.0f);
         }
     }
 
@@ -55,12 +52,36 @@ public class ClientRegistryEvents {
         event.register(item.getItemColor(), item);
     }
 
-    public static void registerItemPigmentColor(RegisterColorHandlersEvent.Item event, Item item, PigmentColor pigmentColor) {
-        event.register((stack, tintIndex) -> pigmentColor.getColor(), item);
+    public static void registerBlockPigmentColor(RegisterColorHandlersEvent.Block event, Block block, PigmentColor pigmentColor, float multiplier) {
+        if(pigmentColor != PigmentColor.OFF_WHITE) {
+        event.register((state, level, pos, tintIndex) -> (PigmentColor.quartetToInt(colorShift(pigmentColor.getARGB(), multiplier,
+                (q, m) -> {
+                    int r = Math.min(255, Math.max(0, (int)(q.getB() * m)));
+                    int g = Math.min(255, Math.max(0, (int)(q.getC() * m)));
+                    int b = Math.min(255, Math.max(0, (int)(q.getD() * m)));
+                    Quartet<Byte, Byte, Byte, Byte> quar = new Quartet<>((byte)((int)q.getA()), (byte)(r), (byte)(g), (byte)(b));
+                    return quar;
+                }))), block);
+        }
     }
 
-    public static void registerBlockPigmentColor(RegisterColorHandlersEvent.Block event, Block block, PigmentColor pigmentColor) {
-        event.register((state, level, pos, tintIndex) -> pigmentColor.getColor(), block);
+    public static void registerItemPigmentColor(RegisterColorHandlersEvent.Item event, Item item, PigmentColor pigmentColor, float multiplier) {
+        if(pigmentColor != PigmentColor.OFF_WHITE) {
+            event.register((stack, tintIndex) -> (PigmentColor.quartetToInt(colorShift(pigmentColor.getARGB(), multiplier,
+                    (q, m) -> {
+                        int r = Math.min(255, Math.max(0, (int)(q.getB() * m)));
+                        int g = Math.min(255, Math.max(0, (int)(q.getC() * m)));
+                        int b = Math.min(255, Math.max(0, (int)(q.getD() * m)));
+                        return new Quartet<>((byte)(q.getA() & 0xFF), (byte)(r & 0xFF), (byte)(g & 0xFF), (byte)(b & 0xFF));
+                    }))), item);
+        }
+    }
+
+    public static Quartet<Byte, Byte, Byte, Byte> colorShift(Quartet<Integer, Integer, Integer, Integer> q, float m, IColorShift instance) {
+        return instance.ColorShift(q, m);
+    }
+
+    public interface IColorShift {
+        Quartet<Byte, Byte, Byte, Byte> ColorShift(Quartet<Integer, Integer, Integer, Integer> q, float m);
     }
 }
-

@@ -6,14 +6,11 @@ import net.bitoeverything.colourmod.block.PigmentBlockSet;
 import net.bitoeverything.colourmod.item.pigments.PigmentColor;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.Map;
@@ -35,6 +32,8 @@ public class ModCreativeModeTabs {
                             AddBlock(blockSet.ConcreteStair.get(), output);
                             AddBlock(blockSet.ConcreteSlab.get(), output);
                             AddBlock(blockSet.ConcreteWall.get(), output);
+                            AddBlock(blockSet.StainedGlass.get(), output);
+                            AddBlock(blockSet.StainedGlassPane.get(), output);
                             AddItem(blockSet.Pigment.get(), output);
                         }
                     }).build());

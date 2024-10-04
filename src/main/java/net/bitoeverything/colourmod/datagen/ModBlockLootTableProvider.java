@@ -8,7 +8,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.registries.DeferredBlock;
 
 import java.util.Map;
 import java.util.Set;
@@ -28,6 +27,8 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
             dropSelf(blockSet.getValue().ConcreteStair.get());
             dropSlab(blockSet.getValue().ConcreteSlab.get());
             dropSelf(blockSet.getValue().ConcreteWall.get());
+            dropWhenSilkTouch(blockSet.getValue().StainedGlass.get());
+            dropWhenSilkTouch(blockSet.getValue().StainedGlassPane.get());
         }
     }
     

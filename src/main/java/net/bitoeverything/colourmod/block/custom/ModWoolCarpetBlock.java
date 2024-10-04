@@ -1,6 +1,6 @@
 package net.bitoeverything.colourmod.block.custom;
 
-import net.bitoeverything.colourmod.item.pigments.PigmentColor;
+import net.bitoeverything.colourmod.item.custom.pigments.PigmentColor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
@@ -10,8 +10,8 @@ import net.minecraft.world.level.block.state.BlockState;
 public class ModWoolCarpetBlock extends CarpetBlock {
     private PigmentColor pigmentColor;
 
-    public ModWoolCarpetBlock(PigmentColor color, Properties p_152915_) {
-        super(p_152915_);
+    public ModWoolCarpetBlock(PigmentColor color, Properties properties) {
+        super(properties);
         this.pigmentColor = color;
     }
 

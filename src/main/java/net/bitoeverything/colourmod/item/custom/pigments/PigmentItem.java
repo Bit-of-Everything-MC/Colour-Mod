@@ -1,4 +1,4 @@
-package net.bitoeverything.colourmod.item.pigments;
+package net.bitoeverything.colourmod.item.custom.pigments;
 
 import com.google.common.collect.Maps;
 import net.minecraft.client.color.item.ItemColor;

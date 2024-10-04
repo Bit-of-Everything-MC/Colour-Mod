@@ -28,6 +28,8 @@ public class ModLanguageProvider extends LanguageProvider {
             addSimpleBlockTranslation(blockSet.getValue().ConcreteStair);
             addSimpleBlockTranslation(blockSet.getValue().ConcreteSlab);
             addSimpleBlockTranslation(blockSet.getValue().ConcreteWall);
+            addSimpleBlockTranslation(blockSet.getValue().StainedGlass);
+            addSimpleBlockTranslation(blockSet.getValue().StainedGlassPane);
         }
 
         this.add("creativetab.colourmod.mod_colored_blocks", "Mod Colored Blocks");

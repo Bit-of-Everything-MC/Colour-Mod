@@ -34,6 +34,8 @@ public class ModBlockTagProvider extends BlockTagsProvider {
             addAllTags(blockSet.getValue().ConcreteStair.get(), BlockTags.STAIRS, BlockTags.MINEABLE_WITH_PICKAXE);
             addAllTags(blockSet.getValue().ConcreteSlab.get(), BlockTags.SLABS, BlockTags.MINEABLE_WITH_PICKAXE);
             addAllTags(blockSet.getValue().ConcreteWall.get(), BlockTags.WALLS, BlockTags.MINEABLE_WITH_PICKAXE);
+            addAllTags(blockSet.getValue().StainedGlass.get(), Tags.Blocks.GLASS_BLOCKS_CHEAP);
+            addAllTags(blockSet.getValue().StainedGlassPane.get(), Tags.Blocks.GLASS_PANES);
         }
     }
     
