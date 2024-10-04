@@ -3,7 +3,7 @@ package net.bitoeverything.colourmod.item;
 import net.bitoeverything.colourmod.ColourMod;
 import net.bitoeverything.colourmod.block.ModBlocks;
 import net.bitoeverything.colourmod.block.PigmentBlockSet;
-import net.bitoeverything.colourmod.item.pigments.PigmentColor;
+import net.bitoeverything.colourmod.item.custom.pigments.PigmentColor;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.Map;
 import java.util.function.Supplier;
 
 public class ModCreativeModeTabs {

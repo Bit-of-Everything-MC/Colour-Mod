@@ -3,8 +3,8 @@ package net.bitoeverything.colourmod.block;
 import net.bitoeverything.colourmod.ColourMod;
 import net.bitoeverything.colourmod.block.custom.*;
 import net.bitoeverything.colourmod.item.ModItems;
-import net.bitoeverything.colourmod.item.pigments.PigmentColor;
-import net.bitoeverything.colourmod.item.pigments.PigmentItem;
+import net.bitoeverything.colourmod.item.custom.pigments.PigmentColor;
+import net.bitoeverything.colourmod.item.custom.pigments.PigmentItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
@@ -54,9 +54,10 @@ public class ModBlocks {
                     () -> new ModStainedGlassBlock(pigment, BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_STAINED_GLASS).mapColor(pigment.getMapColor())));
 
             var stainedGlassPane = registerBlock(pigment.getSerializedName() + "_stained_glass_pane",
-                    () -> new ModStainedGlassPaneBlock(pigment, BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_STAINED_GLASS_PANE).mapColor(pigment.getMapColor()))));
+                    () -> new ModStainedGlassPaneBlock(pigment, BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_STAINED_GLASS_PANE).mapColor(pigment.getMapColor())));
 
-            PigmentBlockSet pigmentBlockSet = new PigmentBlockSet(pigmentItem, wool, carpet, concretePowder, concrete, concreteStair, concreteSlab, concreteWall);
+            PigmentBlockSet pigmentBlockSet = new PigmentBlockSet(pigmentItem, wool, carpet, concretePowder, concrete,
+                    concreteStair, concreteSlab, concreteWall, stainedGlass, stainedGlassPane);
             pigmentBlocks.put(pigment, pigmentBlockSet);
         }
     }

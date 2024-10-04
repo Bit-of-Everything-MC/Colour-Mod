@@ -2,7 +2,7 @@ package net.bitoeverything.colourmod.datagen;
 
 import net.bitoeverything.colourmod.block.ModBlocks;
 import net.bitoeverything.colourmod.block.PigmentBlockSet;
-import net.bitoeverything.colourmod.item.pigments.PigmentColor;
+import net.bitoeverything.colourmod.item.custom.pigments.PigmentColor;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;

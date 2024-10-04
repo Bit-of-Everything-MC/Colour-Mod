@@ -46,9 +46,6 @@ public class ColourMod {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        for(Map.Entry<PigmentColor, DeferredBlock<Block>> element : ModBlocks.glassBlocks.entrySet()) {
-            ItemBlockRenderTypes.setRenderLayer(element.getValue().get(), RenderType.translucent());
-        }
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
