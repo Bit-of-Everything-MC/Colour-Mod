@@ -2,6 +2,7 @@ package net.bitoeverything.colourmod.datagen;
 
 import net.bitoeverything.colourmod.ColourMod;
 import net.bitoeverything.colourmod.block.ModBlocks;
+import net.bitoeverything.colourmod.block.PigmentBlockSet;
 import net.bitoeverything.colourmod.item.pigments.PigmentColor;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
@@ -18,21 +19,21 @@ public class ModLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        for(PigmentColor pigment : PigmentColor.values()) {
-            this.add("item.colourmod." + pigment.getSerializedName() + "_pigment", StringUtils.capitaliseAllWords(pigment.getSerializedName().replace("_", " ")) + " Pigment");
+        for(Map.Entry<PigmentColor, PigmentBlockSet> blockSet : ModBlocks.pigmentBlocks.entrySet()) {
+            this.add("item.colourmod." + blockSet.getKey().getSerializedName() + "_pigment", StringUtils.capitaliseAllWords(blockSet.getKey().getSerializedName().replace("_", " ")) + " Pigment");
+            addSimpleBlockTranslation(blockSet.getValue().Wool);
+            addSimpleBlockTranslation(blockSet.getValue().Carpet);
+            addSimpleBlockTranslation(blockSet.getValue().Concrete);
+            addSimpleBlockTranslation(blockSet.getValue().ConcretePowder);
+            addSimpleBlockTranslation(blockSet.getValue().ConcreteStair);
+            addSimpleBlockTranslation(blockSet.getValue().ConcreteSlab);
+            addSimpleBlockTranslation(blockSet.getValue().ConcreteWall);
         }
-
-        addAllBlockTranslations(ModBlocks.woolBlocks);
-        addAllBlockTranslations(ModBlocks.carpetBlocks);
-        addAllBlockTranslations(ModBlocks.concreteBlocks);
-        addAllBlockTranslations(ModBlocks.concretePowderBlocks);
 
         this.add("creativetab.colourmod.mod_colored_blocks", "Mod Colored Blocks");
     }
 
-    protected void addAllBlockTranslations(Map<PigmentColor, DeferredBlock<Block>> map) {
-        for(Map.Entry<PigmentColor, DeferredBlock<Block>> element: map.entrySet()) {
-            this.add("block.colourmod." + element.getValue().getRegisteredName().replace("colourmod:",""), StringUtils.capitaliseAllWords(element.getValue().getRegisteredName().replace("_", " ").replace("colourmod:","")));
-        }
+    private void addSimpleBlockTranslation(DeferredBlock<? extends Block> block) {
+        this.add("block.colourmod." + block.getRegisteredName().replace("colourmod:",""), StringUtils.capitaliseAllWords(block.getRegisteredName().replace("_", " ").replace("colourmod:","")));
     }
 }

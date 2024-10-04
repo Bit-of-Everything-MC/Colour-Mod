@@ -2,6 +2,7 @@ package net.bitoeverything.colourmod.datagen;
 
 import net.bitoeverything.colourmod.ColourMod;
 import net.bitoeverything.colourmod.block.ModBlocks;
+import net.bitoeverything.colourmod.block.PigmentBlockSet;
 import net.bitoeverything.colourmod.item.pigments.PigmentColor;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -25,18 +26,21 @@ public class ModBlockTagProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
-        addAllTags(ModBlocks.woolBlocks, BlockTags.WOOL);
-        addAllTags(ModBlocks.carpetBlocks, BlockTags.WOOL_CARPETS);
-        addAllTags(ModBlocks.concreteBlocks, BlockTags.MINEABLE_WITH_PICKAXE, Tags.Blocks.CONCRETES);
-        addAllTags(ModBlocks.concretePowderBlocks, BlockTags.CONCRETE_POWDER, BlockTags.MINEABLE_WITH_SHOVEL);
+        for(Map.Entry<PigmentColor, PigmentBlockSet> blockSet : ModBlocks.pigmentBlocks.entrySet()) {
+            addAllTags(blockSet.getValue().Wool.get(), BlockTags.WOOL);
+            addAllTags(blockSet.getValue().Carpet.get(), BlockTags.WOOL_CARPETS);
+            addAllTags(blockSet.getValue().Concrete.get(), BlockTags.MINEABLE_WITH_PICKAXE, Tags.Blocks.CONCRETES);
+            addAllTags(blockSet.getValue().ConcretePowder.get(), BlockTags.CONCRETE_POWDER, BlockTags.MINEABLE_WITH_SHOVEL);
+            addAllTags(blockSet.getValue().ConcreteStair.get(), BlockTags.STAIRS, BlockTags.MINEABLE_WITH_PICKAXE);
+            addAllTags(blockSet.getValue().ConcreteSlab.get(), BlockTags.SLABS, BlockTags.MINEABLE_WITH_PICKAXE);
+            addAllTags(blockSet.getValue().ConcreteWall.get(), BlockTags.WALLS, BlockTags.MINEABLE_WITH_PICKAXE);
+        }
     }
-
+    
     @SafeVarargs
-    protected final void addAllTags(Map<PigmentColor, DeferredBlock<Block>> map, TagKey<Block>... tags) {
-        for(DeferredBlock<Block> element : map.values()) {
-            for(TagKey<Block> tag : tags) {
-                this.tag(tag).add(element.get());
-            }
+    protected final void addAllTags(Block block, TagKey<Block>... tags) {
+        for(TagKey<Block> tag : tags) {
+            this.tag(tag).add(block);
         }
     }
 }

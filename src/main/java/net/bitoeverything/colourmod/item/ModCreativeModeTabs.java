@@ -2,9 +2,11 @@ package net.bitoeverything.colourmod.item;
 
 import net.bitoeverything.colourmod.ColourMod;
 import net.bitoeverything.colourmod.block.ModBlocks;
+import net.bitoeverything.colourmod.block.PigmentBlockSet;
 import net.bitoeverything.colourmod.item.pigments.PigmentColor;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -22,27 +24,30 @@ public class ModCreativeModeTabs {
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ColourMod.MOD_ID);
 
     public static final Supplier<CreativeModeTab> MOD_COLORED_BLOCKS_TAB = CREATIVE_MODE_TABS.register("mod_colored_blocks_tab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.pigmentItems.values().iterator().next().get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.pigmentBlocks.get(PigmentColor.FOREST_GREEN).Pigment.get()))
                     .title(Component.translatable("creativetab.colourmod.mod_colored_blocks"))
                     .displayItems((itemDisplayParameters, output) -> {
-                        for(Map.Entry<PigmentColor, DeferredItem<Item>> pigmentItem : ModItems.pigmentItems.entrySet()) {
-                            output.accept(pigmentItem.getValue().get());
+                        for(PigmentBlockSet blockSet : ModBlocks.pigmentBlocks.values()) {
+                            AddBlock(blockSet.Wool.get(), output);
+                            AddBlock(blockSet.Carpet.get(), output);
+                            AddBlock(blockSet.Concrete.get(), output);
+                            AddBlock(blockSet.ConcretePowder.get(), output);
+                            AddBlock(blockSet.ConcreteStair.get(), output);
+                            AddBlock(blockSet.ConcreteSlab.get(), output);
+                            AddBlock(blockSet.ConcreteWall.get(), output);
+                            AddItem(blockSet.Pigment.get(), output);
                         }
-
-                        addAllBlocks(ModBlocks.woolBlocks, output);
-                        addAllBlocks(ModBlocks.carpetBlocks, output);
-                        addAllBlocks(ModBlocks.concreteBlocks, output);
-                        addAllBlocks(ModBlocks.concretePowderBlocks, output);
-
                     }).build());
 
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TABS.register(eventBus);
     }
 
-    public static void addAllBlocks(Map<PigmentColor, DeferredBlock<Block>> map, CreativeModeTab.Output output) {
-        for(Map.Entry<PigmentColor, DeferredBlock<Block>> element : map.entrySet()) {
-            output.accept(element.getValue().get());
-        }
+    public static <T extends Block> void AddBlock(T block, CreativeModeTab.Output output) {
+        output.accept(block);
+    }
+    
+    public static <T extends Item> void AddItem(T item, CreativeModeTab.Output output) {
+        output.accept(item);
     }
 }

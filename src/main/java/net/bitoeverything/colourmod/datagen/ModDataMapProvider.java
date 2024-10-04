@@ -1,10 +1,13 @@
 package net.bitoeverything.colourmod.datagen;
 
 import net.bitoeverything.colourmod.block.ModBlocks;
+import net.bitoeverything.colourmod.block.PigmentBlockSet;
 import net.bitoeverything.colourmod.item.pigments.PigmentColor;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.DataMapProvider;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.datamaps.builtin.FurnaceFuel;
@@ -20,13 +23,13 @@ public class ModDataMapProvider extends DataMapProvider {
 
     @Override
     protected void gather() {
-        gatherAllForFurnaceFuel(ModBlocks.woolBlocks, 100);
-        gatherAllForFurnaceFuel(ModBlocks.carpetBlocks, 67);
-    }
-
-    protected void gatherAllForFurnaceFuel(Map<PigmentColor, DeferredBlock<Block>> map, int burnTime) {
-        for(Map.Entry<PigmentColor, DeferredBlock<Block>> element: map.entrySet()) {
-            this.builder(NeoForgeDataMaps.FURNACE_FUELS).add(element.getValue().getId(), new FurnaceFuel(burnTime), false);
+        for(Map.Entry<PigmentColor, PigmentBlockSet> blockSet : ModBlocks.pigmentBlocks.entrySet()) {
+            AddFurnaceFuel(blockSet.getValue().Wool, 100);
+            AddFurnaceFuel(blockSet.getValue().Carpet, 67);
         }
+    }
+    
+    protected void AddFurnaceFuel(DeferredBlock<? extends Block> block, int burnTime) {
+        this.builder(NeoForgeDataMaps.FURNACE_FUELS).add(block.getId(), new FurnaceFuel(burnTime), false);
     }
 }

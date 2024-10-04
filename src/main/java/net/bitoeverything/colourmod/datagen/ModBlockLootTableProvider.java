@@ -1,6 +1,7 @@
 package net.bitoeverything.colourmod.datagen;
 
 import net.bitoeverything.colourmod.block.ModBlocks;
+import net.bitoeverything.colourmod.block.PigmentBlockSet;
 import net.bitoeverything.colourmod.item.pigments.PigmentColor;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Holder;
@@ -19,20 +20,23 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
-        dropSelfBlocks(ModBlocks.woolBlocks);
-        dropSelfBlocks(ModBlocks.carpetBlocks);
-        dropSelfBlocks(ModBlocks.concreteBlocks);
-        dropSelfBlocks(ModBlocks.concretePowderBlocks);
+        for(Map.Entry<PigmentColor, PigmentBlockSet> blockSet : ModBlocks.pigmentBlocks.entrySet()) {
+            dropSelf(blockSet.getValue().Wool.get());
+            dropSelf(blockSet.getValue().Carpet.get());
+            dropSelf(blockSet.getValue().Concrete.get());
+            dropSelf(blockSet.getValue().ConcretePowder.get());
+            dropSelf(blockSet.getValue().ConcreteStair.get());
+            dropSlab(blockSet.getValue().ConcreteSlab.get());
+            dropSelf(blockSet.getValue().ConcreteWall.get());
+        }
+    }
+    
+    private void dropSlab(Block block) {
+        this.add(block, createSlabItemTable(block));
     }
 
     @Override
     protected Iterable<Block> getKnownBlocks() {
         return ModBlocks.BLOCKS.getEntries().stream().map(Holder::value)::iterator;
-    }
-
-    protected void dropSelfBlocks(Map<PigmentColor, DeferredBlock<Block>> map) {
-        for(Map.Entry<PigmentColor, DeferredBlock<Block>> element: map.entrySet()) {
-            dropSelf(element.getValue().get());
-        }
     }
 }

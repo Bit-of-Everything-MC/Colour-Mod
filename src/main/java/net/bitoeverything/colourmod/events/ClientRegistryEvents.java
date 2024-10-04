@@ -2,6 +2,7 @@ package net.bitoeverything.colourmod.events;
 
 import net.bitoeverything.colourmod.ColourMod;
 import net.bitoeverything.colourmod.block.ModBlocks;
+import net.bitoeverything.colourmod.block.PigmentBlockSet;
 import net.bitoeverything.colourmod.item.ModItems;
 
 import net.bitoeverything.colourmod.item.pigments.PigmentColor;
@@ -14,29 +15,40 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
+import oshi.util.tuples.Quartet;
 
+import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.function.Function;
 
 @EventBusSubscriber(value = Dist.CLIENT, modid = ColourMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class ClientRegistryEvents {
     @SubscribeEvent
     public static void registerItemColor(RegisterColorHandlersEvent.Item event) {
-        for(Map.Entry<PigmentColor, DeferredItem<Item>> pigmentItem : ModItems.pigmentItems.entrySet()) {
-            registerPigmentItemPigmentColor(event, (PigmentItem)pigmentItem.getValue().get());
+        for(Map.Entry<PigmentColor, PigmentBlockSet> blockSet : ModBlocks.pigmentBlocks.entrySet()) {
+            registerPigmentItemPigmentColor(event, blockSet.getValue().Pigment.get());
+            registerItemPigmentColor(event, blockSet.getValue().Wool.asItem(), blockSet.getKey());
+            registerItemPigmentColor(event, blockSet.getValue().Carpet.asItem(), blockSet.getKey());
+            registerItemPigmentColor(event, blockSet.getValue().Concrete.asItem(), blockSet.getKey());
+            registerItemPigmentColor(event, blockSet.getValue().ConcretePowder.asItem(), blockSet.getKey());
+            registerItemPigmentColor(event, blockSet.getValue().ConcreteStair.asItem(), blockSet.getKey());
+            registerItemPigmentColor(event, blockSet.getValue().ConcreteSlab.asItem(), blockSet.getKey());
+            registerItemPigmentColor(event, blockSet.getValue().ConcreteWall.asItem(), blockSet.getKey());
         }
-
-        registerAllItemPigmentColors(event, ModBlocks.woolBlocks);
-        registerAllItemPigmentColors(event, ModBlocks.carpetBlocks);
-        registerAllItemPigmentColors(event, ModBlocks.concreteBlocks);
-        registerAllItemPigmentColors(event, ModBlocks.concretePowderBlocks);
+        
     }
 
     @SubscribeEvent
     public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {
-        registerAllBlockPigmentColors(event, ModBlocks.woolBlocks);
-        registerAllBlockPigmentColors(event, ModBlocks.carpetBlocks);
-        registerAllBlockPigmentColors(event, ModBlocks.concreteBlocks);
-        registerAllBlockPigmentColors(event, ModBlocks.concretePowderBlocks);
+        for(Map.Entry<PigmentColor, PigmentBlockSet> blockSet : ModBlocks.pigmentBlocks.entrySet()) {
+            registerBlockPigmentColor(event, blockSet.getValue().Wool.get(), blockSet.getKey());
+            registerBlockPigmentColor(event, blockSet.getValue().Carpet.get(), blockSet.getKey());
+            registerBlockPigmentColor(event, blockSet.getValue().Concrete.get(), blockSet.getKey());
+            registerBlockPigmentColor(event, blockSet.getValue().ConcretePowder.get(), blockSet.getKey());
+            registerBlockPigmentColor(event, blockSet.getValue().ConcreteStair.get(), blockSet.getKey());
+            registerBlockPigmentColor(event, blockSet.getValue().ConcreteSlab.get(), blockSet.getKey());
+            registerBlockPigmentColor(event, blockSet.getValue().ConcreteWall.get(), blockSet.getKey());
+        }
     }
 
     public static void registerPigmentItemPigmentColor(RegisterColorHandlersEvent.Item event, PigmentItem item) {
@@ -50,16 +62,5 @@ public class ClientRegistryEvents {
     public static void registerBlockPigmentColor(RegisterColorHandlersEvent.Block event, Block block, PigmentColor pigmentColor) {
         event.register((state, level, pos, tintIndex) -> pigmentColor.getColor(), block);
     }
-
-    public static void registerAllBlockPigmentColors(RegisterColorHandlersEvent.Block event, Map<PigmentColor, DeferredBlock<Block>> map) {
-        for(Map.Entry<PigmentColor, DeferredBlock<Block>> element : map.entrySet()) {
-            registerBlockPigmentColor(event, element.getValue().get(), element.getKey());
-        }
-    }
-
-    public static void registerAllItemPigmentColors(RegisterColorHandlersEvent.Item event, Map<PigmentColor, DeferredBlock<Block>> map) {
-        for(Map.Entry<PigmentColor, DeferredBlock<Block>> element : map.entrySet()) {
-            registerItemPigmentColor(event, element.getValue().asItem(), element.getKey());
-        }
-    }
 }
+

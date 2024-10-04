@@ -2,6 +2,7 @@ package net.bitoeverything.colourmod.datagen;
 
 import net.bitoeverything.colourmod.ColourMod;
 import net.bitoeverything.colourmod.block.ModBlocks;
+import net.bitoeverything.colourmod.block.PigmentBlockSet;
 import net.bitoeverything.colourmod.item.pigments.PigmentColor;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -20,14 +21,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        registerTintableCubeAllBlocksWithItems(ModBlocks.woolBlocks, "white_wool");
-        tintableCarpetWithItem(ModBlocks.carpetBlocks, "white_wool");
-        registerTintableCubeAllBlocksWithItems(ModBlocks.concreteBlocks, "white_concrete");
-        registerTintableCubeAllBlocksWithItems(ModBlocks.concretePowderBlocks, "white_concrete_powder");
-    }
-
-    public void tintableCubeAllWithItem(DeferredBlock<?> deferredBlock, String name, String namespace, String texture) {
-        simpleBlockWithItem(deferredBlock.get(), tintableCubeAll(name, namespace, texture));
+        for(Map.Entry<PigmentColor, PigmentBlockSet> blockSet : ModBlocks.pigmentBlocks.entrySet()) {
+            simpleBlockWithItem(blockSet.getValue().Wool.get(), tintableCubeAll(blockSet.getValue().Wool.getRegisteredName(), ResourceLocation.DEFAULT_NAMESPACE, "white_wool"));
+            simpleBlockWithItem(blockSet.getValue().Carpet.get(), tintableCarpet(blockSet.getValue().Carpet.getRegisteredName(), ResourceLocation.DEFAULT_NAMESPACE, "white_wool"));
+            simpleBlockWithItem(blockSet.getValue().Concrete.get(), tintableCubeAll(blockSet.getValue().Concrete.getRegisteredName(), ResourceLocation.DEFAULT_NAMESPACE, "white_concrete"));
+            simpleBlockWithItem(blockSet.getValue().ConcretePowder.get(), tintableCubeAll(blockSet.getValue().ConcretePowder.getRegisteredName(), ResourceLocation.DEFAULT_NAMESPACE, "white_concrete_powder"));
+        }
     }
 
     public ModelFile tintableCubeAll(String name, String namespace, String texture) {
@@ -36,18 +35,5 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     public ModelFile tintableCarpet(String name, String namespace, String texture) {
         return this.models().singleTexture(name, ResourceLocation.fromNamespaceAndPath(ColourMod.MOD_ID, "template_tint_carpet"), "wool", ResourceLocation.fromNamespaceAndPath(namespace, "block/" + texture));
-    }
-
-    public void tintableCarpetWithItem(Map<PigmentColor, DeferredBlock<Block>> map, String texture) {
-        for(Map.Entry<PigmentColor, DeferredBlock<Block>> element: map.entrySet()) {
-            simpleBlockWithItem(element.getValue().get(), tintableCarpet(element.getValue().getRegisteredName(), ResourceLocation.DEFAULT_NAMESPACE, texture));
-        }
-    }
-
-    public void registerTintableCubeAllBlocksWithItems(Map<PigmentColor, DeferredBlock<Block>> map, String parentTexture) {
-        for(Map.Entry<PigmentColor, DeferredBlock<Block>> element: map.entrySet()) {
-            tintableCubeAllWithItem(element.getValue(), element.getValue().getRegisteredName(),
-                    ResourceLocation.DEFAULT_NAMESPACE, parentTexture);
-        }
     }
 }
