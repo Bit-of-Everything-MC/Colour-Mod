@@ -166,7 +166,7 @@ neoForge.ideSyncTask generateModMetadata
 publishing {
     publications {
         register('mavenJava', MavenPublication) {
-            artifactId = "colour-mod"
+            artifactId = project.mod_id
             from components.java
         }
     }
