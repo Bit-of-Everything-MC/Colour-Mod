@@ -169,6 +169,9 @@ publishing {
             artifactId = project.mod_id
             groupId = project.mod_group_id
             version = project.mod_version
+            pom {
+                name = project.mod_name
+            }
             from components.java
         }
     }
