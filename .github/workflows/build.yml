@@ -1,0 +1,13 @@
+name: Build
+
+on:
+  push:
+    branches-ignore:
+      - main
+  pull_request:
+    branches-ignore:
+      - main
+
+jobs:
+  publish:
+    uses: Bit-of-Everything-MC/CICD/.github/workflows/build.yml@main
