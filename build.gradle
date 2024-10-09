@@ -164,14 +164,21 @@ neoForge.ideSyncTask generateModMetadata
 
 // Example configuration to allow publishing using the maven-publish plugin
 publishing {
+    /*
     publications {
         register('mavenJava', MavenPublication) {
             from components.java
         }
-    }
+    }*/
     repositories {
         maven {
-            url "file://${project.projectDir}/repo"
+            name = "GitHubPackages"
+            
+            url = "https://maven.pkg.github.com/Bit-of-Everything-MC/colours"
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
         }
     }
 }
