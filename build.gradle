@@ -167,6 +167,8 @@ publishing {
     publications {
         register('mavenJava', MavenPublication) {
             artifactId = project.mod_id
+            groupId = project.mod_group_id
+            version = project.mod_version
             from components.java
         }
     }
@@ -175,7 +177,7 @@ publishing {
         maven {
             name = "GitHubPackages"
             
-            url = "https://maven.pkg.github.com/bit-of-everything-mc"
+            url = "https://maven.pkg.github.com/bit-of-everything-mc/colour-mod"
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")
