@@ -4,4 +4,4 @@ on: [push, pull_request]
 
 jobs:
   publish:
-    uses: bit-of-everything/cicd/.github/workflows/publish.yml@main
+    uses: Bit-of-Everything-MC/CICD/.github/workflows/publish.yml@main
