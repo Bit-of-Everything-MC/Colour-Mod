@@ -174,7 +174,7 @@ publishing {
         maven {
             name = "GitHubPackages"
             
-            url = "https://maven.pkg.github.com/Bit-of-Everything-MC/colours"
+            url = "https://maven.pkg.github.com/bit-of-everything-mc/colour-mod"
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")
